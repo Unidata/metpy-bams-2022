@@ -34,5 +34,5 @@ pc.size = (18, 9)
 pc.panels = [panel]
 pc.save("bams_plotgeom.png", dpi=600)
 
-# ### draft caption
+# draft caption
 # NOAA/NWS Storm Prediction Center (SPC) March 17 2021 1200 UTC Day 1 Convective Outlook recreated using metpy.plots.PlotGeometry. PlotGeometry is provided as part of MetPy's declarative plotting interface. Data from SPC GeoJSON archive.
