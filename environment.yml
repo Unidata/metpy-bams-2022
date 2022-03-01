@@ -1,0 +1,14 @@
+name: bams-article
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - matplotlib
+  - numpy
+  - pandas
+  - metpy
+  - siphon
+  - geopandas
+  - cartopy
+  - xarray
+prefix: /Users/drewcamron/mambaforge/envs/bams-article
