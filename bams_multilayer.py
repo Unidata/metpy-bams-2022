@@ -105,7 +105,7 @@ ax.imshow(
     extent=image_extent,
     origin="lower",
     cmap="Greys_r",
-    regrid_shape=500,
+    regrid_shape=6000,
     transform=cmi.metpy.cartopy_crs,
 )
 
@@ -159,7 +159,7 @@ ax.add_feature(cfeature.BORDERS, color="yellow")
 ax.add_feature(cfeature.COASTLINE, color="yellow")
 ax.set_extent((-113, -70, 25, 45))
 
-fig.savefig("bams_multilayer.png", dpi=600)
+fig.savefig("bams_multilayer.png", dpi=600, bbox_inches='tight')
 
 
 # #### draft of caption
