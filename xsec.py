@@ -152,7 +152,7 @@ ax.set_ylabel(f"Pressure (hPa)")
 ax.set_xlabel("Latitude (degrees north), Longitude (degrees east)")
 rh_colorbar.set_label("Relative Humidity")
 
-fig.savefig("bams_xsec.png", dpi=600, bbox_inches='tight')
+fig.savefig("xsec.png", dpi=600, bbox_inches='tight')
 
 
 # draft caption

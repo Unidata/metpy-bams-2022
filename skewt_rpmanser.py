@@ -123,9 +123,9 @@ skew.ax.set_xlabel(fr"Temperature (${T.units:~L}$)")
 ax_hodo = inset_axes(skew.ax, "40%", "40%", loc=1)
 hodo = Hodograph(ax_hodo, component_range=80.0)
 hodo.add_grid(increment=20)
-hodo.plot_colormapped(u, v, hght)
+hodo.plot_colormapped(u[below_100_hpa], v[below_100_hpa], hght[below_100_hpa])
 
-fig.savefig("bams_skewt_rpmanser.png", dpi=600, bbox_inches='tight')
+fig.savefig("skewt_rpmanser.png", dpi=600, bbox_inches='tight')
 
 # #### draft caption
 # Vertical profile of the atmosphere, valid from Topeka (TOP) May 22 2011 1200 UTC, presented on a Skew-T log-p diagram. Shown are observed temperature (red line), dewpoint temperature (green line), calculated parcel profile trace (black line), and 0-degree isotherm (blue line, dashed), and wind barbs (knots, right axis), with shaded areas for CIN (blue shaded) and CAPE (red shaded.) MetPy-calculated indices are inset in the lower-left, and a hodograph presented in the upper-right.
