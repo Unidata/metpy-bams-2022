@@ -124,6 +124,7 @@ ax_hodo = inset_axes(skew.ax, "40%", "40%", loc=1)
 hodo = Hodograph(ax_hodo, component_range=80.0)
 hodo.add_grid(increment=20)
 hodo.plot_colormapped(u[below_100_hpa], v[below_100_hpa], hght[below_100_hpa])
+ax_hodo.set_yticks(range(-50, 51, 50))
 
 fig.savefig("skewt_rpmanser.png", dpi=600, bbox_inches='tight')
 
