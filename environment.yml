@@ -1,14 +1,12 @@
-name: bams-article
+name: bams-manuscript
 channels:
   - conda-forge
 dependencies:
-  - python
-  - matplotlib
-  - numpy
-  - pandas
-  - metpy
-  - siphon
-  - geopandas
-  - cartopy
-  - xarray
-prefix: /Users/drewcamron/mambaforge/envs/bams-article
+  - cartopy==0.20.2
+  - geopandas==0.10.2
+  - matplotlib==3.5.1
+  - metpy==1.2.0
+  - numpy==1.22.2
+  - pandas==1.4.1
+  - siphon==0.9
+  - xarray==0.21.1
