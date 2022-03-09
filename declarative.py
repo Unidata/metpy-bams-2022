@@ -1,8 +1,3 @@
-
-
-# In[1]:
-
-
 import metpy.calc as mpcalc
 import xarray as xr
 from metpy.cbook import get_test_data
@@ -17,9 +12,6 @@ ds = data.metpy.sel(lat=slice(70, 10), lon=slice(360 - 150, 360 - 55))
 ds["wind_speed"] = mpcalc.wind_speed(
     ds["u-component_of_wind_isobaric"], ds["v-component_of_wind_isobaric"]
 )
-
-
-# In[9]:
 
 
 from metpy.plots import (
@@ -64,11 +56,7 @@ pc = PanelContainer()
 pc.size = (15, 15)
 pc.panels = [panel]
 
-pc.save("declarative.png", dpi=600, bbox_inches="tight")
-
-
-# In[7]:
-
+pc.save("images/declarative.png", dpi=600, bbox_inches="tight")
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
