@@ -1,3 +1,6 @@
+# # Figure 1
+# ## Creating a Skew-T representation of an atmospheric profile with remotely accessed data
+# Provided by rpmanser (co-author).
 
 from datetime import datetime
 
@@ -99,5 +102,5 @@ ax_hodo.set_yticks(range(-50, 51, 50))
 
 fig.savefig("images/fig1_skewt.png", dpi=600, bbox_inches='tight')
 
-# #### draft caption
+# ### Draft caption
 # Vertical profile of the atmosphere, valid from Topeka (TOP) May 22 2011 1200 UTC, presented on a Skew-T log-p diagram. Shown are observed temperature (red line), dewpoint temperature (green line), calculated parcel profile trace (black line), and 0-degree isotherm (blue line, dashed), and wind barbs (knots, right axis), with shaded areas for CIN (blue shaded) and CAPE (red shaded.) MetPy-calculated indices are inset in the lower-left, and a hodograph presented in the upper-right.

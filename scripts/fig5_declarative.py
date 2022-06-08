@@ -1,7 +1,18 @@
+# # Figure 5
+# ## Comparison of figure generation with and without Declarative interface
+# Adapted from https://github.com/Unidata/python-training/blob/master/pages/gallery/Declarative_300hPa.ipynb.  
+# As an addendum, we generate the identical figure without Declarative. These code snippets are used to generate Figure 4.
+
+# ### With Declarative
+# Here we generate the example figure using MetPy's Declarative plotting interface.
+
 import metpy.calc as mpcalc
 import xarray as xr
+# get_test_data is used for internal MetPy testing and not supported publicly
 from metpy.cbook import get_test_data
 from metpy.units import units
+
+# Read GFS output valid 1200 UTC 31 October 2010, provided as part of MetPy's internal testing data.
 
 data = xr.open_dataset(get_test_data("GFS_test.nc", False)).metpy.parse_cf().squeeze()
 
@@ -57,6 +68,9 @@ pc.size = (15, 15)
 pc.panels = [panel]
 
 pc.save("images/fig5_declarative.png", dpi=600, bbox_inches="tight")
+
+# ### Without Declarative
+# Here, we re-create an identical figure to above, but through "imperative" Matplotlib syntax.
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature

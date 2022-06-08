@@ -1,10 +1,7 @@
-"""
-Using `cross_section` to sample data along a great circle slice.
-Adapted from MetPy example gallery, from MetPy Maintainers.
-"""
+# # Figure 3
+# ## Using `cross_section` to sample data along a great circle slice.
+# Adapted from https://unidata.github.io/MetPy/v1.3/examples/cross_section.html.
 
-
-# Imports
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -13,18 +10,19 @@ import metpy.calc as mpcalc
 import numpy as np
 import xarray as xr
 from matplotlib import rcParams
+# get_test_data is used for internal MetPy testing and not supported publicly
 from metpy.cbook import get_test_data
 from metpy.interpolate import cross_section
 
 
-# Update plot font sizes
+# We update plot font sizes for final figure legibility.
 
 label_sizes = {"xtick.labelsize": 12, "ytick.labelsize": 12, "axes.labelsize": 14}
 
 rcParams.update(label_sizes)
 
 
-# Open MetPy-packaged testing data
+# Read NARR data valid 1800 UTC 4 April 1987, provided as part of MetPy's internal testing data.
 
 data = xr.open_dataset(get_test_data("narr_example.nc", False))
 data = data.metpy.parse_cf().squeeze()
@@ -155,5 +153,5 @@ rh_colorbar.set_label("Relative Humidity")
 fig.savefig("images/fig3_cross_section.png", dpi=600, bbox_inches="tight")
 
 
-# draft caption
+# ### Draft caption
 # Vertical cross section of relative humidity (shaded, dimensionless), potential temperature (contours, K), and wind (barbs, knots) components tangential and normal to the plane of the cross section. Latitude, longitude coordinates along the cross section path are provided along the x-axis, vertical pressure levels are provided along the y-axis. Inset (top-left corner) is a map of the trace of the cross-section and contours of 500 hPa geopotential height. Data from North American Regional Reanalysis (NARR) valid April 04 1987 1800UTC.

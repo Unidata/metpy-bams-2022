@@ -1,3 +1,6 @@
+# # Figure 2
+# ## Layered plot of multiple data products and calculations provided by Siphon and MetPy
+# Adapted from https://github.com/Unidata/metpy-workshop/blob/main/notebooks/solutions/workshop_solutions.ipynb.
 
 from datetime import datetime
 
@@ -12,6 +15,8 @@ from metpy.io import parse_metar_file
 from metpy.units import pandas_dataframe_to_unit_arrays
 from siphon.catalog import TDSCatalog
 
+# Access near-real-time satellite data remotely from UCAR/Unidata's THREDDS Data Server (TDS).
+
 satcat = TDSCatalog(
     'https://thredds.ucar.edu/thredds/catalog/satellite/goes/east/products/CloudAndMoistureImagery/CONUS/Channel02/current/catalog.xml'
 )
@@ -19,6 +24,8 @@ satdata = satcat.datasets[0].remote_access(use_xarray=True)
 
 cmi = satdata.metpy.parse_cf("Sectorized_CMI")
 dt = datetime.strptime(satdata.attrs["start_date_time"], "%Y%j%H%M%S")
+
+# Access Real Time Mesoscale Analysis (RTMA) output remotely from the same TDS.
 
 rtma_cat = TDSCatalog(
     "https://thredds.ucar.edu/thredds/catalog/grib/NCEP/RTMA/CONUS_2p5km/catalog.xml"
@@ -40,6 +47,8 @@ theta_e = mpcalc.equivalent_potential_temperature(pres, temp, dewp)
 theta_e = mpcalc.smooth_gaussian(theta_e, n=50)
 
 rtma_crs = theta_e.metpy.cartopy_crs
+
+# Access near-real-time surface observations as text METAR reports from Unidata's THREDDS-test testing TDS.
 
 metar_cat = TDSCatalog(
     "https://thredds-test.unidata.ucar.edu/thredds/catalog/noaaport/text/metar/catalog.xml"
@@ -126,5 +135,5 @@ ax.set_extent((-113, -70, 25, 45))
 fig.savefig("images/fig2_multilayer.png", dpi=600, bbox_inches='tight')
 print(f"For caption: {dt:%H%M} UTC {dt:%d %B %Y}")
 
-# #### draft of caption
+# ### Draft caption
 # Map of the continental U.S. with background GOES-16 Channel 02 imagery, overlayed with contours of potential temperature calculated from Real-Time Mesoscale Analysis (RTMA) output and station models of surface observations from a collection of surface observation METARs. All products valid {date of production}.
