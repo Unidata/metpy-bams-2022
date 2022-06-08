@@ -124,6 +124,7 @@ ax.add_feature(cfeature.COASTLINE, color="yellow")
 ax.set_extent((-113, -70, 25, 45))
 
 fig.savefig("images/fig2_multilayer.png", dpi=600, bbox_inches='tight')
+print(f"For caption: {dt:%H%M} UTC {dt:%d %B %Y}")
 
 # #### draft of caption
 # Map of the continental U.S. with background GOES-16 Channel 02 imagery, overlayed with contours of potential temperature calculated from Real-Time Mesoscale Analysis (RTMA) output and station models of surface observations from a collection of surface observation METARs. All products valid {date of production}.
