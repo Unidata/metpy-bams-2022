@@ -1,0 +1,13 @@
+[tool.black]
+line-length = 95
+
+[tool.isort]
+profile = "black"
+line_length = 95
+known_first_party = ["metpy", "siphon"]
+treat_comments_as_code = ["# %%"]
+
+[tool.jupytext]
+formats = ["scripts///py:percent", "notebooks///ipynb"]
+notebook_metadata_filter = "-all"
+cell_metadata_filter = "-all"
