@@ -18,8 +18,6 @@ from siphon.simplewebservice.wyoming import WyomingUpperAir
 
 # %%
 label_sizes = {"xtick.labelsize": 12, "ytick.labelsize": 12, "axes.labelsize": 14}
-
-# %%
 rcParams.update(label_sizes)
 
 # %%
@@ -33,9 +31,6 @@ df = df.dropna(
 ).reset_index(drop=True)
 
 # %%
-df = df.drop(df.index[np.append(np.diff(df["pressure"]) >= 0, False)])
-
-# %%
 p = df["pressure"].values * units.hPa
 T = df["temperature"].values * units.degC
 Td = df["dewpoint"].values * units.degC
@@ -43,9 +38,6 @@ wind_speed = df["speed"].values * units.knots
 wind_dir = df["direction"].values * units.degrees
 u, v = mpcalc.wind_components(wind_speed, wind_dir)
 hght = df["height"].values * units.meter
-
-# %%
-below_100_hpa = p >= 101.0 * units.hPa
 
 # %%
 prof = mpcalc.parcel_profile(p, T[0], Td[0]).to("degC")
@@ -67,7 +59,8 @@ EL = {el_pressure:.0f~P}"""
 fig = plt.figure(figsize=(12, 12))
 skew = SkewT(fig, rotation=45)
 
-# %%
+below_100_hpa = p >= 101.0 * units.hPa
+
 # Plot the data using normal plotting functions, in this case using
 # log scaling in Y, as dictated by the typical meteorological plot.
 skew.plot(p, T, "r")
@@ -76,7 +69,6 @@ skew.plot_barbs(p[below_100_hpa], u[below_100_hpa], v[below_100_hpa])
 skew.ax.set_ylim(1000, 100)
 skew.ax.set_xlim(-40, 60)
 
-# %%
 # Calculate LCL height and plot as black dot. Because `p`'s first value is
 # ~1000 mb and its last value is ~250 mb, the `0` index is selected for
 # `p`, `T`, and `Td` to lift the parcel from the surface. If `p` was inverted,
@@ -84,42 +76,34 @@ skew.ax.set_xlim(-40, 60)
 # should be selected.
 skew.plot(lcl_pressure, lcl_temperature, "ko", markerfacecolor="black")
 
-# %%
 # Calculate full parcel profile and add to plot as black line
 skew.plot(p, prof, "k", linewidth=2)
 
-# %%
 # Shade areas of CAPE and CIN
 skew.shade_cin(p, T, prof, Td)
 skew.shade_cape(p, T, prof)
 
-# %%
 # An example of a slanted line at constant T -- in this case the 0
 # isotherm
 skew.ax.axvline(0, color="c", linestyle="--", linewidth=2)
 
-# %%
 # Add the relevant special lines
 skew.plot_dry_adiabats()
 skew.plot_moist_adiabats()
 skew.plot_mixing_lines()
 
-# %%
 fig.text(0.14, 0.21, indices, size=14, ha="left", bbox=dict(boxstyle="square", fc="white"))
 
-# %%
 skew.ax.set_ylabel(f"Pressure ({p.units:~P})")
 skew.ax.set_xlabel(rf"Temperature (${T.units:~L}$)")
 # skew.ax.set_title("KTOP 2011-05-22 1200 UTC")
 
-# %%
 ax_hodo = inset_axes(skew.ax, "40%", "40%", loc=1)
 hodo = Hodograph(ax_hodo, component_range=80.0)
 hodo.add_grid(increment=20)
 hodo.plot_colormapped(u[below_100_hpa], v[below_100_hpa], hght[below_100_hpa])
 ax_hodo.set_yticks(range(-50, 51, 50))
 
-# %%
 fig.savefig("images/fig1_skewt.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]

@@ -23,10 +23,7 @@ from metpy.interpolate import cross_section
 
 # %%
 label_sizes = {"xtick.labelsize": 12, "ytick.labelsize": 12, "axes.labelsize": 14}
-
-# %%
 rcParams.update(label_sizes)
-
 
 # %% [markdown]
 # Read NARR data valid 1800 UTC 4 April 1987, provided as part of MetPy's internal testing data.
@@ -75,7 +72,6 @@ cross["t_wind"], cross["n_wind"] = mpcalc.cross_section_components(
 fig = plt.figure(1, figsize=(18, 9))
 ax = plt.axes()
 
-# %%
 rh_contour = ax.contourf(
     cross["index"],
     cross["isobaric"],
@@ -84,10 +80,8 @@ rh_contour = ax.contourf(
     cmap="YlGnBu",
 )
 
-# %%
 rh_colorbar = fig.colorbar(rh_contour)
 
-# %%
 theta_contour = ax.contour(
     cross["index"],
     cross["isobaric"],
@@ -97,7 +91,6 @@ theta_contour = ax.contour(
     linewidths=2,
 )
 
-# %%
 theta_contour.clabel(
     theta_contour.levels[1::2],
     fontsize=8,
@@ -109,11 +102,9 @@ theta_contour.clabel(
     use_clabeltext=True,
 )
 
-# %%
 wind_slc_vert = list(range(0, 19, 2)) + list(range(19, 29))
 wind_slc_horz = slice(5, 100, 5)
 
-# %%
 ax.barbs(
     cross["index"][wind_slc_horz],
     cross["isobaric"][wind_slc_vert],
@@ -122,24 +113,20 @@ ax.barbs(
     color="k",
 )
 
-# %%
 # Create x-axis ticks for lat, lon pairs
 xticks = np.arange(10, 100, 15)
 ax.set_xticks(xticks)
 
-# %%
 # Adjust y-axis to log-scale and define pressure level ticks
 ax.set_yscale("symlog")
 ax.set_ylim(cross["isobaric"].max(), cross["isobaric"].min())
 ax.set_yticks(np.arange(1000, 50, -100))
 
-# %%
 # Get Cartopy CRS object via MetPy xarray accessor
 # and create inset map
 data_crs = data["Geopotential_height"].metpy.cartopy_crs
 ax_inset = fig.add_axes([0.125, 0.654, 0.25, 0.25], projection=data_crs)
 
-# %%
 ax_inset.contour(
     data["x"],
     data["y"],
@@ -148,7 +135,6 @@ ax_inset.contour(
     cmap="inferno",
 )
 
-# %%
 # Mark ends of cross section path and draw a line between
 endpoints = data_crs.transform_points(
     ccrs.Geodetic(), *np.vstack([start, end]).transpose()[::-1]
@@ -156,13 +142,10 @@ endpoints = data_crs.transform_points(
 ax_inset.scatter(endpoints[:, 0], endpoints[:, 1], c="k", zorder=2)
 ax_inset.plot(cross["x"], cross["y"], c="k", zorder=2)
 
-# %%
 # Add geographic features
 ax_inset.coastlines()
 ax_inset.add_feature(cfeature.STATES.with_scale("50m"), edgecolor="k", alpha=0.2, zorder=0)
 
-
-# %%
 # Set axis and tick labels
 ax.set_xticklabels(
     [
@@ -177,9 +160,7 @@ ax.set_ylabel(f"Pressure (hPa)")
 ax.set_xlabel("Latitude (degrees north), Longitude (degrees east)")
 rh_colorbar.set_label("Relative Humidity")
 
-# %%
 fig.savefig("images/fig3_cross_section.png", dpi=600, bbox_inches="tight")
-
 
 # %% [markdown]
 # ### Draft caption
