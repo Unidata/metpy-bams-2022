@@ -181,7 +181,7 @@ ax.set_ylabel(f"Pressure (hPa)")
 ax.set_xlabel("Latitude (degrees north), Longitude (degrees east)")
 rh_colorbar.set_label("Relative Humidity")
 
-fig.savefig("../images/fig3_cross_section.png", dpi=600, bbox_inches="tight")
+fig.savefig("../output/fig3_cross_section.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption

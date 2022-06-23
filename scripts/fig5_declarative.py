@@ -74,7 +74,7 @@ pc = PanelContainer()
 pc.size = (15, 15)
 pc.panels = [panel]
 
-pc.save("../images/fig5_declarative.png", dpi=600, bbox_inches="tight")
+pc.save("../output/fig5_declarative.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Without Declarative

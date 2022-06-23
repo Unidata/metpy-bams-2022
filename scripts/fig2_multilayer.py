@@ -140,13 +140,13 @@ ax.add_feature(cfeature.COASTLINE, color="yellow")
 ax.set_extent((-113, -70, 25, 45))
 
 datestamp = f"{dt:%H%M} UTC {dt:%d %B %Y}"
-with open("../images/fig2_caption.txt", "wt") as caption_file:
+with open("../output/fig2_caption.txt", "wt") as caption_file:
     caption_file.write(datestamp)
 
 print(f"For caption: {datestamp}")
 
 fig.show()
-fig.savefig("../images/fig2_multilayer.png", dpi=600, bbox_inches="tight")
+fig.savefig("../output/fig2_multilayer.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption

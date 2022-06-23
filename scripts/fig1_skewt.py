@@ -104,7 +104,7 @@ hodo.add_grid(increment=20)
 hodo.plot_colormapped(u[below_100_hpa], v[below_100_hpa], hght[below_100_hpa])
 ax_hodo.set_yticks(range(-50, 51, 50))
 
-fig.savefig("../images/fig1_skewt.png", dpi=600, bbox_inches="tight")
+fig.savefig("../output/fig1_skewt.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption

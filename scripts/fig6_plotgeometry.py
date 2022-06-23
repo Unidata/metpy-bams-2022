@@ -47,7 +47,7 @@ panel.layers = ["lakes", "land", "ocean", "states", "coastline", "borders"]
 pc = PanelContainer()
 pc.size = (18, 9)
 pc.panels = [panel]
-pc.save("../images/fig6_plotgeometry.png", dpi=600, bbox_inches="tight")
+pc.save("../output/fig6_plotgeometry.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption
