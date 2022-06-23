@@ -9,5 +9,3 @@ treat_comments_as_code = ["# %%"]
 
 [tool.jupytext]
 formats = ["scripts///py:percent", "notebooks///ipynb"]
-notebook_metadata_filter = "-all"
-cell_metadata_filter = "-all"
