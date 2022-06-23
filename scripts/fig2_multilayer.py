@@ -139,7 +139,11 @@ ax.add_feature(cfeature.BORDERS, color="yellow")
 ax.add_feature(cfeature.COASTLINE, color="yellow")
 ax.set_extent((-113, -70, 25, 45))
 
-print(f"For caption: {dt:%H%M} UTC {dt:%d %B %Y}")
+datestamp = f"{dt:%H%M} UTC {dt:%d %B %Y}"
+with open("../images/fig2_caption.txt", "wt") as caption_file:
+    caption_file.write(datestamp)
+
+print(f"For caption: {datestamp}")
 
 fig.show()
 fig.savefig("../images/fig2_multilayer.png", dpi=600, bbox_inches="tight")
