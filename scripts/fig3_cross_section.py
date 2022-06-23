@@ -16,7 +16,7 @@ import metpy.calc as mpcalc
 
 # get_test_data is used for internal MetPy testing and not supported publicly
 from metpy.cbook import get_test_data
-from metpy.interpolate import cross_section
+from metpy.interpolate import cross_section, log_interpolate_1d
 
 # %% [markdown]
 # We update plot font sizes for final figure legibility.
@@ -32,24 +32,36 @@ rcParams.update(label_sizes)
 data = xr.open_dataset(get_test_data("narr_example.nc", False))
 data = data.metpy.parse_cf().squeeze()
 
+# %%
+topo = xr.open_dataset("../hgt.sfc.nc")
+topo = topo.metpy.parse_cf("hgt").squeeze()
 
 # %% [markdown]
-# Define endpoints for cross section
+# Define endpoints for cross section and calculate cross sections for for data and corresponding topography.
 
 # %%
 start = (37.0, -105.0)
 end = (35.5, -65.0)
 
-
-# %% [markdown]
-# Calculate cross section
-
-# %%
+topo_cross = cross_section(topo, start, end)
 cross = cross_section(data, start, end).set_coords(("lat", "lon"))
 
 
 # %% [markdown]
 # Produce calculations along plane of cross section
+
+# %%
+c = []
+for index in cross.index:
+    a = cross["Geopotential_height"].sel(index=index)
+    b = topo_cross.sel(index=index)
+    c.append(log_interpolate_1d(b, a, a.metpy.vertical))
+
+da = xr.DataArray(
+    np.array(c).squeeze(), coords=topo_cross.coords, dims="index", attrs={"units": c[0].units}
+)
+
+cross["topo_pressure"] = da
 
 # %%
 cross["Potential_temperature"] = mpcalc.potential_temperature(
@@ -113,6 +125,15 @@ ax.barbs(
     color="k",
 )
 
+ax.fill_between(
+    cross["index"],
+    cross["topo_pressure"],
+    cross["isobaric"][0],
+    edgecolor="black",
+    facecolor="gray",
+    zorder=2,
+)
+
 # Create x-axis ticks for lat, lon pairs
 xticks = np.arange(10, 100, 15)
 ax.set_xticks(xticks)
@@ -160,7 +181,7 @@ ax.set_ylabel(f"Pressure (hPa)")
 ax.set_xlabel("Latitude (degrees north), Longitude (degrees east)")
 rh_colorbar.set_label("Relative Humidity")
 
-fig.savefig("images/fig3_cross_section.png", dpi=600, bbox_inches="tight")
+fig.savefig("../images/fig3_cross_section.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption

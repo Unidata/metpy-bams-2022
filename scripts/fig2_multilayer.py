@@ -139,8 +139,10 @@ ax.add_feature(cfeature.BORDERS, color="yellow")
 ax.add_feature(cfeature.COASTLINE, color="yellow")
 ax.set_extent((-113, -70, 25, 45))
 
-fig.savefig("images/fig2_multilayer.png", dpi=600, bbox_inches="tight")
 print(f"For caption: {dt:%H%M} UTC {dt:%d %B %Y}")
+
+fig.show()
+fig.savefig("../images/fig2_multilayer.png", dpi=600, bbox_inches="tight")
 
 # %% [markdown]
 # ### Draft caption
