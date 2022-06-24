@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 from matplotlib import rcParams
+from matplotlib.patheffects import withStroke
 
 import metpy.calc as mpcalc
 
@@ -136,7 +137,7 @@ ax.fill_between(
 
 # Create x-axis ticks for lat, lon pairs
 xticks = np.arange(10, 100, 15)
-ax.set_xticks(xticks)
+ax.set_xticks(np.concatenate([[0], xticks, [99]]))
 
 # Adjust y-axis to log-scale and define pressure level ticks
 ax.set_yscale("symlog")
@@ -167,15 +168,36 @@ ax_inset.plot(cross["x"], cross["y"], c="k", zorder=2)
 ax_inset.coastlines()
 ax_inset.add_feature(cfeature.STATES.with_scale("50m"), edgecolor="k", alpha=0.2, zorder=0)
 
-# Set axis and tick labels
-ax.set_xticklabels(
-    [
-        f"{lat:.4}, {lon:.4}"
-        for (lat, lon) in zip(
-            cross["lat"].sel(index=xticks).values, cross["lon"].sel(index=xticks).values
-        )
-    ]
+#
+ax_inset.text(
+    endpoints[0, 0] - 400000,
+    endpoints[0, 1] - 350000,
+    "A",
+    transform=data_crs,
+    fontweight="bold",
+    color="white",
+    path_effects=[withStroke(linewidth=3, foreground="black")],
 )
+ax_inset.text(
+    endpoints[1, 0] + 200000,
+    endpoints[1, 1] - 250000,
+    "B",
+    transform=data_crs,
+    fontweight="bold",
+    color="white",
+    path_effects=[withStroke(linewidth=3, foreground="black")],
+)
+
+# Set axis and tick labels
+
+ticklabels = [
+    f"{lat:.4}, {lon:.4}"
+    for (lat, lon) in zip(
+        cross["lat"].sel(index=xticks).values, cross["lon"].sel(index=xticks).values
+    )
+]
+
+ax.set_xticklabels(np.concatenate([["A"], ticklabels, ["B"]]))
 ax.set_yticklabels(np.arange(1000, 50, -100))
 ax.set_ylabel(f"Pressure (hPa)")
 ax.set_xlabel("Latitude (degrees north), Longitude (degrees east)")

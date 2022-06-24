@@ -91,7 +91,7 @@ ax.imshow(
     transform=cmi.metpy.cartopy_crs,
 )
 
-ax.contour(
+c = ax.contour(
     theta_e.metpy.x,
     theta_e.metpy.y,
     theta_e,
@@ -99,6 +99,9 @@ ax.contour(
     colors="tab:blue",
     transform=theta_e.metpy.cartopy_crs,
 )
+
+cl = ax.clabel(c, use_clabeltext=True, fontsize=11, zorder=10)
+plt.setp(cl, path_effects=[withStroke(linewidth=1, foreground="black")])
 
 stn = mpplots.StationPlot(
     ax,
