@@ -100,7 +100,9 @@ c = ax.contour(
     transform=theta_e.metpy.cartopy_crs,
 )
 
-cl = ax.clabel(c, use_clabeltext=True, fontsize=11, zorder=10)
+cl = ax.clabel(
+    c, levels=range(240, 400, 8), inline=True, use_clabeltext=True, fontsize=11, zorder=10
+)
 plt.setp(cl, path_effects=[withStroke(linewidth=1, foreground="black")])
 
 stn = mpplots.StationPlot(
