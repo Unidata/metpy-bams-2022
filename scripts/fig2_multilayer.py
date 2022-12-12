@@ -36,7 +36,7 @@ dt = datetime.strptime(satdata.attrs["start_date_time"], "%Y%j%H%M%S")
 rtma_cat = TDSCatalog(
     "https://thredds.ucar.edu/thredds/catalog/grib/NCEP/RTMA/CONUS_2p5km/catalog.xml"
 )
-rtma_data = rtma_cat.datasets["Full Collection Dataset"].remote_access(use_xarray=True)
+rtma_data = rtma_cat.datasets["Best Real Time Mesoscale Analysis 2.5 km Time Series"].remote_access(use_xarray=True)
 rtma_data = rtma_data.metpy.parse_cf().squeeze()
 
 # %%
