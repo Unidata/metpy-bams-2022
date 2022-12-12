@@ -59,7 +59,7 @@ rtma_crs = theta_e.metpy.cartopy_crs
 
 # %%
 metar_cat = TDSCatalog(
-    "https://thredds-test.unidata.ucar.edu/thredds/catalog/noaaport/text/metar/catalog.xml"
+    "https://thredds.ucar.edu/thredds/catalog/noaaport/text/metar/catalog.xml"
 )
 metar_text = metar_cat.datasets.filter_time_nearest(dt).remote_open(mode="t")
 
